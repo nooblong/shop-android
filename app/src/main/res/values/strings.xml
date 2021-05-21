@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">shop</string>
+    <string name="title_home">Home</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_order">Order</string>
+    <string name="title_login">Login</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="item_example_1">1</string>
+    <string name="item_example_name">Name</string>
+    <string name="item_example_desc">description</string>
+    <string name="button_change">切换</string>
+</resources>
