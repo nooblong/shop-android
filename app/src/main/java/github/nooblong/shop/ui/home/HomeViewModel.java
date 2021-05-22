@@ -2,6 +2,7 @@ package github.nooblong.shop.ui.home;
 
 import android.app.Application;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
@@ -52,7 +53,9 @@ public class HomeViewModel extends AndroidViewModel {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                Looper.prepare();
                 Toast.makeText(application.getApplicationContext(), "获取失败", Toast.LENGTH_LONG).show();
+                Looper.loop();
             }
 
             @Override
@@ -61,6 +64,12 @@ public class HomeViewModel extends AndroidViewModel {
                 List<Product> products = gson.fromJson(response.body().string(), new TypeToken<List<Product>>(){}.getType());
                 Log.d(TAG, products.toString());
                 getProducts().postValue(products);
+                homeFragment.recyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
             }
         });
     }
