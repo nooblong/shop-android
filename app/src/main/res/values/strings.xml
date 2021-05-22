@@ -14,11 +14,13 @@
     <string name="item_example_1">0</string>
     <string name="login_username">username</string>
     <string name="button_login">login</string>
-    <string name="order_name">name</string>
-    <string name="order_room" >room</string>
-    <string name="order_tele">tele</string>
+    <string name="order_room">room</string>
     <string name="order_phone">phone</string>
     <string name="order_products">products</string>
     <string name="submit">submit</string>
     <string name="order_remark">remark</string>
+    <string name="order_name">name</string>
+    <string name="order_address">address</string>
+    <string name="order_tele">tele</string>
+    <string name="order_price">price</string>
 </resources>

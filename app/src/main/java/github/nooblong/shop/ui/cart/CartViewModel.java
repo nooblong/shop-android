@@ -10,7 +10,7 @@ public class CartViewModel extends ViewModel {
 
     public CartViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("历史订单");
     }
 
     public LiveData<String> getText() {

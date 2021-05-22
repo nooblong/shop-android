@@ -30,6 +30,8 @@ public class CartFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+
         return root;
     }
 }
