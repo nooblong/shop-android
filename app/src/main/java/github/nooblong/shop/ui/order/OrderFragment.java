@@ -15,8 +15,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import github.nooblong.shop.R;
@@ -49,6 +55,15 @@ public class OrderFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        TextView cart = root.findViewById(R.id.orderProducts);
+        Map<Integer, Integer> toBuy = HomeFragment.toBuy;
+        Map<String, Integer> toBuyName = new HashMap<>();
+        for (Map.Entry<Integer, Integer> entry : toBuy.entrySet()) {
+            String name = Util.getName(entry.getKey());
+            toBuyName.put(name, entry.getValue());
+        }
+        cart.setText(toBuyName.toString());
 
         name = root.findViewById(R.id.orderName);
         room = root.findViewById(R.id.orderRoom);
@@ -90,5 +105,49 @@ public class OrderFragment extends Fragment {
         });
 
         return root;
+    }
+
+    public static class Util {
+        public static String result = "";
+        public static String getName(int id) {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .connectTimeout(10000, TimeUnit.MILLISECONDS)
+                    .build();
+            Request request = new Request.Builder()
+                    .get()
+                    .addHeader("cookie", LoginFragment.session)
+                    .url(LoginFragment.BASE_URL + "/api/good/" + id)
+                    .build();
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    synchronized (Util.class) {
+                        String json = response.body().string();
+                        JsonParser parser = new JsonParser();
+                        JsonElement element = parser.parse(json);
+                        JsonObject root = element.getAsJsonObject();
+                        String res = root.get("name").getAsString();
+                        Log.d("res", res);
+                        result = res;
+                        Util.class.notify();
+                    }
+                }
+            });
+            try {
+                synchronized (Util.class) {
+                    Util.class.wait();
+                    return result;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return "no";
+        }
     }
 }

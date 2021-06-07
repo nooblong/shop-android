@@ -40,7 +40,7 @@ public class LoginFragment extends Fragment {
 
     LoginViewModel loginViewModel;
 
-    public static final String BASE_URL = "http://192.168.1.179:5000";
+    public static final String BASE_URL = "http://10.0.2.2:5000";
     public static final String TAG = "TEST";
     Switch aSwitch;
     Button loginButton;
