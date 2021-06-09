@@ -95,6 +95,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     Log.d("tmp", HomeFragment.toBuy.toString());
                 }
             });
+            remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Integer before = Integer.valueOf(itemNum.getText().toString());
+//                    Log.d("tmp", itemNum.getText().toString());
+                    itemNum.setText(String.valueOf(before - 1));
+                    Map<Integer, Integer> toBuy = HomeFragment.toBuy;
+                    if (!toBuy.containsKey(Integer.valueOf(textViewId.getText().toString()))) {
+                        return;
+                    } else {
+                        if (toBuy.get(Integer.valueOf(textViewId.getText().toString())) >= 1) {
+                            toBuy.put(Integer.valueOf(textViewId.getText().toString()),
+                                    toBuy.get(Integer.valueOf(textViewId.getText().toString())) - 1);
+                        }
+                    }
+                    Log.d("tmp", HomeFragment.toBuy.toString());
+                }
+            });
         }
     }
 

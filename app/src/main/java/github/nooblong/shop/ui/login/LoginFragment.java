@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import github.nooblong.shop.MainActivity;
 import github.nooblong.shop.R;
 import github.nooblong.shop.ui.home.HomeFragment;
 import okhttp3.Call;
@@ -54,6 +55,21 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         View root = inflater.inflate(R.layout.fragment_login, container, false);
+        if (session != null){
+            View root2 = inflater.inflate(R.layout.after_login, container, false);
+            TextView name = root2.findViewById(R.id.name);
+            Log.d("ddd", loginViewModel.getUsername().getValue());
+            name.setText(String.valueOf(loginViewModel.getUsername().getValue()));
+            root2.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    session = null;
+                    LoginFragment.super.onResume();
+                }
+
+            });
+            return root2;
+        }
 
         root.findViewById(R.id.button_test).setOnClickListener( (view) -> {
             get();
@@ -105,7 +121,10 @@ public class LoginFragment extends Fragment {
                         Log.d("Login", "onResponse-size: " + cookies);
                         LoginFragment.session = s.substring(0, s.indexOf(";"));
                         Log.i("Login", "session is  :" + LoginFragment.session);
-
+                        root.post(() -> {
+                            loginViewModel.setUsername(username.getText().toString());
+                        });
+                        Log.d("saveUsername", loginViewModel.getUsername().getValue());
                     }
                 });
             }

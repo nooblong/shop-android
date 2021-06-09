@@ -4,21 +4,21 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="首页" />
 
     <item
         android:id="@+id/navigation_cart"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_cart" />
+        android:title="订单" />
 
     <item
         android:id="@+id/navigation_order"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_order" />
+        android:icon="@mipmap/cart"
+        android:title="提交" />
 
     <item
         android:id="@+id/navigation_login"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_login" />
+        android:icon="@mipmap/user"
+        android:title="登录" />
 
 </menu>

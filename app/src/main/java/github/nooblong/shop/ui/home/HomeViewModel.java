@@ -63,11 +63,10 @@ public class HomeViewModel extends AndroidViewModel {
                 Gson gson = new Gson();
                 List<Product> products = gson.fromJson(response.body().string(), new TypeToken<List<Product>>(){}.getType());
                 Log.d(TAG, products.toString());
-                getProducts().postValue(products);
                 homeFragment.recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-
+                        getProducts().postValue(products);
                     }
                 });
             }
