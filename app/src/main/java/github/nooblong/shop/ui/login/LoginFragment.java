@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,7 +65,7 @@ public class LoginFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     session = null;
-                    LoginFragment.super.onResume();
+                    Toast.makeText(getContext(),"退出成功", Toast.LENGTH_LONG).show();
                 }
 
             });
@@ -123,6 +124,7 @@ public class LoginFragment extends Fragment {
                         Log.i("Login", "session is  :" + LoginFragment.session);
                         root.post(() -> {
                             loginViewModel.setUsername(username.getText().toString());
+                            Toast.makeText(getContext(),"登录成功", Toast.LENGTH_LONG).show();
                         });
                         Log.d("saveUsername", loginViewModel.getUsername().getValue());
                     }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -94,11 +95,15 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.d("order", "fail");
+                        Toast.makeText(getContext(),"提交失败", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         Log.d("order", "success");
+                        root.post(() -> {
+                            Toast.makeText(getContext(),"提交成功", Toast.LENGTH_LONG).show();
+                        });
                     }
                 });
             }
